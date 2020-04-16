@@ -229,7 +229,8 @@ def update_graph(n_intervals, n_clicks):
     global Y
     mpu = mpu6050(0x68)
     acc = mpu.get_accel_data()
-    Y.append(acc['z'])
+    acc_z= acc['z']-int(10)
+    Y.append(acc_z)
     X.append(X[-1]+1)
     
     while n_clicks % 2 != 0:
@@ -245,7 +246,8 @@ def update_graph(n_intervals, n_clicks):
                                                  ticks='',
                                                  showticklabels=False,
                                                  range=[min(X), max(X)]),
-                                    yaxis = dict(range=[min(Y)-2, max(Y)+2]))}
+                                    yaxis = dict(title='z-Acceleration [m/s²]',
+                                        range=[min(Y)-2, max(Y)+2]))}
     else:
         data = go.Scatter(
             x = list(),
